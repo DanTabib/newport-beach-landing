@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ScrollSection = () => {
 	useEffect(() => {
-		const images = gsap.utils.toArray(".right-side img");
+		const images = gsap.utils.toArray<HTMLImageElement>(".right-side img");
 
 		images.forEach((image, index) => {
 			if (index !== 0) {
