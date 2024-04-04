@@ -32,7 +32,7 @@ const HeroSection = () => {
 
 	return (
 		<section className="mm-home-hero" ref={heroRef}>
-			<div className="mm-home-hero__wrapper">
+			<div className="mm-home-hero__wrapper absolute">
 				<div className="mm-home-hero__content">
 					{/* Front Layer */}
 					<div className="mm-home-hero__layer front-layer" ref={frontLayerRef}>
