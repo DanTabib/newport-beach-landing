@@ -49,7 +49,7 @@ const HeroSection = () => {
 							</picture>
 						</div>
 						<div className="mm-home-hero__layer__content">
-							<h1 className="text-8xl" style={{ color: "white" }}>
+							<h1 className="lg:text-8xl text-4xl" style={{ color: "white" }}>
 								LUXURY <em>at your leisure</em>
 							</h1>
 						</div>
@@ -68,7 +68,7 @@ const HeroSection = () => {
 							className="mm-home-hero__layer__content flex flex-col"
 							style={{ color: "#212c40" }}
 						>
-							<h1 className="text-8xl">
+							<h1 className="lg:text-8xl text-4xl">
 								LUXURY <em>at your leisure</em>
 							</h1>
 							<p className="text-3xl max-w-5xl mt-8">
