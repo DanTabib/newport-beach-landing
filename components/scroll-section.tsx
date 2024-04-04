@@ -28,11 +28,23 @@ const ScrollSection = () => {
 		<section className="">
 			<div className="lg:flex items-start">
 				<nav className="sticky top-0">
-					<ul className="flex items-center gap-2 inter [writing-mode:vertical-lr] -scale-[1]">
-						<li className="flex">Things to do</li>
-						<li className="flex">Dine</li>
-						<li className="flex">Shop</li>
-						<li className="flex">Stay</li>
+					<ul className="flex items-center justify-center gap-6 inter [writing-mode:vertical-lr] -scale-[1] bg-secondary h-full px-6">
+						<li className="flex items-center justify-center gap-3">
+							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
+							<span className="uppercase text-1xl">Things to do</span>
+						</li>
+						<li className="flex items-center justify-center gap-3">
+							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
+							<span className="uppercase text-1xl">Dine</span>
+						</li>
+						<li className="flex items-center justify-center gap-3">
+							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
+							<span className="uppercase text-1xl">Shop</span>
+						</li>
+						<li className="flex items-center justify-center gap-3">
+							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
+							<span className="uppercase text-1xl">Stay</span>
+						</li>
 					</ul>
 				</nav>
 				<div className="left-side col-span-1 bg-secondary lg:w-1/2">
