@@ -11,6 +11,17 @@ export default function Home() {
 			<TextMeetMiddle />
 			<SparklingWater />
 			<ScrollSection />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
+			<SparklingWater />
 		</main>
 	);
 }

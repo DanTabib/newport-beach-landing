@@ -27,6 +27,14 @@ const ScrollSection = () => {
 	return (
 		<section className="">
 			<div className="lg:flex items-start">
+				<nav className="sticky top-0">
+					<ul className="flex items-center gap-2 inter [writing-mode:vertical-lr] -scale-[1]">
+						<li className="flex">Things to do</li>
+						<li className="flex">Dine</li>
+						<li className="flex">Shop</li>
+						<li className="flex">Stay</li>
+					</ul>
+				</nav>
 				<div className="left-side col-span-1 bg-secondary lg:w-1/2">
 					{/* THINGS TO DO */}
 					<div className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col">
