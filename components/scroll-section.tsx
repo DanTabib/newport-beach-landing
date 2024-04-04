@@ -117,25 +117,25 @@ const ScrollSection = () => {
 				<div className="right-side col-span-1 relative w-1/2">
 					{/* THINGS TO DO */}
 					<img
-						className="h-screen sticky top-0 object-cover"
+						className="rounded-b-[200px] h-screen sticky top-0 object-cover"
 						src="/scroll-1.jpg"
 						alt=""
 					/>
 					{/* THINGS TO SEE */}
 					<img
-						className="h-screen sticky top-0 object-cover"
+						className="rounded-b-[200px] h-screen sticky top-0 object-cover"
 						src="/scroll-2.jpg"
 						alt=""
 					/>
 					{/* PLACES TO SHOP */}
 					<img
-						className="h-screen sticky top-0 object-cover"
+						className="rounded-b-[200px] h-screen sticky top-0 object-cover"
 						src="/scroll-3.jpg"
 						alt=""
 					/>
 					{/* HOTELS TO STAY */}
 					<img
-						className="h-screen sticky top-0 object-cover"
+						className="rounded-b-[200px] h-screen sticky top-0 object-cover"
 						src="/scroll-4.jpg"
 						alt=""
 					/>
