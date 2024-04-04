@@ -9,7 +9,6 @@ export default function Home() {
 		<main className="">
 			<Hero />
 			<TextMeetMiddle />
-			<SparklingWater />
 			<ScrollSection />
 			<SparklingWater />
 			<SparklingWater />
