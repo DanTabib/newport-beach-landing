@@ -9,35 +9,44 @@ gsap.registerPlugin(ScrollTrigger);
 const ScrollSection = () => {
 	const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const rightSideImageRefs = useRef<(HTMLImageElement | null)[]>([]);
+	const parentDivRef = useRef<HTMLDivElement | null>(null); // Ref for the parent div
 
 	useEffect(() => {
-		// Define a breakpoint for mobile devices
 		const breakpoint = 992;
 
-		// Function to set up ScrollTriggers
 		const setUpScrollTriggers = () => {
-			console.log(sectionRefs.current);
 			sectionRefs.current.forEach((section, index) => {
-				if (index > 0) {
-					// Animate the previous image up to reveal the next image
+				if (section) {
 					gsap.to(rightSideImageRefs.current[index - 1], {
 						yPercent: -100,
 						ease: "none",
 						scrollTrigger: {
 							trigger: section,
-							start: "top bottom",
+							start: "top-=50px bottom",
 							end: "bottom bottom",
 							scrub: true,
+							markers: true, // Remember to remove markers in production
 						},
 					});
 
-					// Set the active section index for navigation highlighting
 					ScrollTrigger.create({
 						trigger: section,
 						start: "top center",
 						end: "bottom center",
-						onEnter: () => setActiveSection(index),
-						onEnterBack: () => setActiveSection(index),
+						onEnter: () => {
+							setActiveSection(index);
+							if (parentDivRef.current && section.dataset.color) {
+								parentDivRef.current.style.backgroundColor =
+									section.dataset.color;
+							}
+						},
+						onEnterBack: () => {
+							setActiveSection(index);
+							if (parentDivRef.current && section.dataset.color) {
+								parentDivRef.current.style.backgroundColor =
+									section.dataset.color;
+							}
+						},
 						onLeave: () => setActiveSection(index + 1),
 						onLeaveBack: () => setActiveSection(index - 1),
 					});
@@ -45,34 +54,34 @@ const ScrollSection = () => {
 			});
 		};
 
-		// Check if the current window width is greater than the breakpoint
 		const isDesktop = window.innerWidth > breakpoint;
 
 		if (isDesktop) {
-			// Set up ScrollTriggers for desktop
 			setUpScrollTriggers();
 		}
 
-		// Cleanup function
 		return () => {
 			if (isDesktop) {
-				// Kill all ScrollTriggers to clean up
 				ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 			}
 		};
 	}, []);
 
-	// Dynamically update the active section for the navigation
 	const [activeSection, setActiveSection] = useState(0);
+
 	return (
 		<section className="">
-			<div className="lg:flex items-start">
+			<div
+				className="lg:flex items-start transition"
+				style={{ backgroundColor: "#ccccff" }}
+				ref={parentDivRef}
+			>
 				<nav className="sticky top-0 lg:block hidden">
-					<ul className="flex items-center justify-center gap-6 inter [writing-mode:vertical-lr] -scale-[1] bg-secondary h-full px-6">
+					<ul className="flex items-center justify-center gap-6 inter [writing-mode:vertical-lr] -scale-[1] h-full px-6">
 						{["Things to do", "Dine", "Shop", "Stay"].map((item, index) => (
 							<li
 								key={index}
-								className={`flex items-center justify-center gap-3 ${
+								className={`flex items-center justify-center gap-3 transition ${
 									activeSection === index ? "opacity-100" : "opacity-25"
 								}`}
 							>
@@ -82,12 +91,13 @@ const ScrollSection = () => {
 						))}
 					</ul>
 				</nav>
-				<div className="left-side col-span-1 bg-secondary lg:w-1/2 flex flex-col gap-12">
+				<div className="left-side col-span-1 lg:w-1/2 flex flex-col gap-12">
 					{/* Things to Do Section */}
 					<div
 						ref={(el) => {
 							sectionRefs.current[0] = el;
 						}}
+						data-color="#ccccff"
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -110,6 +120,7 @@ const ScrollSection = () => {
 						ref={(el) => {
 							sectionRefs.current[1] = el;
 						}}
+						data-color="#6a5acd"
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -130,6 +141,7 @@ const ScrollSection = () => {
 						ref={(el) => {
 							sectionRefs.current[2] = el;
 						}}
+						data-color="#b0e0e6"
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -150,6 +162,7 @@ const ScrollSection = () => {
 						ref={(el) => {
 							sectionRefs.current[3] = el;
 						}}
+						data-color="#4682b4"
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img

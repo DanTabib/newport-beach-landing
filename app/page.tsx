@@ -21,6 +21,7 @@ export default function Home() {
 			<SparklingWater />
 			<SparklingWater />
 			<SparklingWater />
+			<ScrollSection />
 		</main>
 	);
 }
