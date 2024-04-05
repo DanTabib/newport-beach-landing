@@ -32,15 +32,15 @@ const ScrollSection = () => {
 					});
 
 					// Set the active section index for navigation highlighting
-					// ScrollTrigger.create({
-					// 	trigger: section,
-					// 	start: "top center",
-					// 	end: "bottom center",
-					// 	onEnter: () => setActiveSection(index),
-					// 	onEnterBack: () => setActiveSection(index),
-					// 	onLeave: () => setActiveSection(index + 1),
-					// 	onLeaveBack: () => setActiveSection(index - 1),
-					// });
+					ScrollTrigger.create({
+						trigger: section,
+						start: "top center",
+						end: "bottom center",
+						onEnter: () => setActiveSection(index),
+						onEnterBack: () => setActiveSection(index),
+						onLeave: () => setActiveSection(index + 1),
+						onLeaveBack: () => setActiveSection(index - 1),
+					});
 				}
 			});
 		};
