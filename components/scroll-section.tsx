@@ -25,7 +25,6 @@ const ScrollSection = () => {
 							start: "top-=50px bottom",
 							end: "bottom bottom",
 							scrub: true,
-							markers: true, // Remember to remove markers in production
 						},
 					});
 
