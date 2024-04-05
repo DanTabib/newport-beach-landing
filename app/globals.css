@@ -20,12 +20,8 @@
 
 body {
 	color: rgb(var(--foreground-rgb));
-	background: linear-gradient(
-			to bottom,
-			transparent,
-			rgb(var(--background-end-rgb))
-		)
-		rgb(var(--background-start-rgb));
+	background: #fff;
+	text-wrap: balance;
 }
 
 @layer utilities {
@@ -80,7 +76,6 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 10;
 	width: 100%;
 	height: 100vh;
 	display: flex;
@@ -104,4 +99,89 @@ body {
 p,
 .inter {
 	font-family: "Inter", sans-serif;
+}
+
+/*******************/
+
+@keyframes sparkle {
+	0% {
+		transform: translate3D(-50%, -50%, 0) scale(0);
+	}
+	20% {
+		transform: translate3D(-50%, -50%, 0) scale(1);
+	}
+	40% {
+		transform: translate3D(-50%, -50%, 0) scale(0);
+	}
+
+	to {
+		transform: translate3D(-50%, -50%, 0) scale(0);
+	}
+}
+.sparkle {
+	height: auto;
+	pointer-events: none;
+	transform: translate3D(-50%, -50%, 0);
+	transform-origin: center;
+	animation: sparkle 2s linear infinite;
+}
+
+#sparkle-1 {
+	animation-delay: 0.05s;
+	left: 42.92%;
+	top: 96.8%;
+}
+
+#sparkle-2 {
+	animation-delay: 0.17s;
+	left: 81.5%;
+	top: 75.61%;
+}
+
+#sparkle-3 {
+	animation-delay: 0.4s;
+	left: 27.5%;
+	top: 72.04%;
+}
+
+#sparkle-4 {
+	animation-delay: 0.9s;
+	left: 87.67%;
+	top: 89.68%;
+}
+
+#sparkle-5 {
+	animation-delay: 0.9s;
+	left: 29%;
+	top: 82.94%;
+}
+
+#sparkle-6 {
+	animation-delay: 0.41s;
+	left: 77.5%;
+	top: 72.27%;
+}
+
+#sparkle-7 {
+	animation-delay: 0.77s;
+	left: 60.75%;
+	top: 77.03%;
+}
+
+#sparkle-8 {
+	animation-delay: 0.65s;
+	left: 72%;
+	top: 75.57%;
+}
+
+#sparkle-9 {
+	animation-delay: 0.65s;
+	left: 72.33%;
+	top: 81.53%;
+}
+
+#sparkle-10 {
+	animation-delay: 0.91s;
+	left: 30%;
+	top: 77.46%;
 }

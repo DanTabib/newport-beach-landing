@@ -7,8 +7,8 @@ import GhostButton from "@/components/ghost-button";
 gsap.registerPlugin(ScrollTrigger);
 
 const ScrollSection = () => {
-	const sectionRefs = useRef([]);
-	const rightSideImageRefs = useRef([]);
+	const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const rightSideImageRefs = useRef<(HTMLImageElement | null)[]>([]);
 
 	useEffect(() => {
 		// Define a breakpoint for mobile devices (e.g., 768px for tablets)
@@ -41,7 +41,6 @@ const ScrollSection = () => {
 						onEnterBack: () => setActiveSection(index),
 						onLeave: () => setActiveSection(index + 1),
 						onLeaveBack: () => setActiveSection(index - 1),
-						markers: true, // For debugging, remove in production
 					});
 				}
 			});
@@ -87,7 +86,9 @@ const ScrollSection = () => {
 				<div className="left-side col-span-1 bg-secondary lg:w-1/2 flex flex-col gap-12">
 					{/* Things to Do Section */}
 					<div
-						ref={(el) => (sectionRefs.current[0] = el)}
+						ref={(el) => {
+							sectionRefs.current[0] = el;
+						}}
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -95,17 +96,21 @@ const ScrollSection = () => {
 							alt="Things to Do"
 							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
 						/>
-						<div className="lg:p-0 p-8 flex flex-col gap-10">
+						<div className="lg:p-0 p-12 flex flex-col gap-10">
 							<h3 className="lg:text-6xl text-3xl">
 								THINGS <em>to do</em>
 							</h3>
 							<p>Description of things to do...</p>
-							<GhostButton text="View More" />
+							<div>
+								<GhostButton text="View More" />
+							</div>
 						</div>
 					</div>
 					{/* Dine Section */}
 					<div
-						ref={(el) => (sectionRefs.current[1] = el)}
+						ref={(el) => {
+							sectionRefs.current[1] = el;
+						}}
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -113,15 +118,19 @@ const ScrollSection = () => {
 							alt="Dine"
 							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
 						/>
-						<div className="lg:p-0 p-8 flex flex-col gap-10">
+						<div className="lg:p-0 p-12 flex flex-col gap-10">
 							<h3 className="lg:text-6xl text-3xl">DINE</h3>
 							<p>Description of places to dine...</p>
-							<GhostButton text="View More" />
+							<div>
+								<GhostButton text="View More" />
+							</div>
 						</div>
 					</div>
 					{/* Shop Section */}
 					<div
-						ref={(el) => (sectionRefs.current[2] = el)}
+						ref={(el) => {
+							sectionRefs.current[2] = el;
+						}}
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -129,15 +138,19 @@ const ScrollSection = () => {
 							alt="Shop"
 							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
 						/>
-						<div className="lg:p-0 p-8 flex flex-col gap-10">
+						<div className="lg:p-0 p-12 flex flex-col gap-10">
 							<h3 className="lg:text-6xl text-3xl">SHOP</h3>
 							<p>Description of places to shop...</p>
-							<GhostButton text="View More" />
+							<div>
+								<GhostButton text="View More" />
+							</div>
 						</div>
 					</div>
 					{/* Stay Section */}
 					<div
-						ref={(el) => (sectionRefs.current[3] = el)}
+						ref={(el) => {
+							sectionRefs.current[3] = el;
+						}}
 						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
 					>
 						<img
@@ -145,37 +158,47 @@ const ScrollSection = () => {
 							alt="Stay"
 							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
 						/>
-						<div className="lg:p-0 p-8 flex flex-col gap-10">
+						<div className="lg:p-0 p-12 flex flex-col gap-10">
 							<h3 className="lg:text-6xl text-3xl">
 								HOTELS <em>to stay</em>
 							</h3>
 							<p>Description of hotels to stay...</p>
-							<GhostButton text="View More" />
+							<div>
+								<GhostButton text="View More" />
+							</div>
 						</div>
 					</div>
 				</div>
 				<div className="right-side h-screen col-span-1 relative lg:w-1/2 overflow-hidden sticky top-0 lg:block hidden">
 					{/* Images corresponding to each section */}
 					<img
-						ref={(el) => (rightSideImageRefs.current[0] = el)}
+						ref={(el) => {
+							rightSideImageRefs.current[0] = el;
+						}}
 						src="/scroll-1.jpg"
 						alt="Things to Do"
 						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-40"
 					/>
 					<img
-						ref={(el) => (rightSideImageRefs.current[1] = el)}
+						ref={(el) => {
+							rightSideImageRefs.current[1] = el;
+						}}
 						src="/scroll-2.jpg"
 						alt="Dine"
 						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-30"
 					/>
 					<img
-						ref={(el) => (rightSideImageRefs.current[2] = el)}
+						ref={(el) => {
+							rightSideImageRefs.current[2] = el;
+						}}
 						src="/scroll-3.jpg"
 						alt="Shop"
 						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-20"
 					/>
 					<img
-						ref={(el) => (rightSideImageRefs.current[3] = el)}
+						ref={(el) => {
+							rightSideImageRefs.current[3] = el;
+						}}
 						src="/scroll-4.jpg"
 						alt="Stay"
 						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-10"
