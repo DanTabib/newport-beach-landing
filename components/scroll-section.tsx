@@ -16,6 +16,7 @@ const ScrollSection = () => {
 
 		// Function to set up ScrollTriggers
 		const setUpScrollTriggers = () => {
+			console.log(sectionRefs.current);
 			sectionRefs.current.forEach((section, index) => {
 				if (index > 0) {
 					// Animate the previous image up to reveal the next image
@@ -27,7 +28,6 @@ const ScrollSection = () => {
 							start: "top bottom",
 							end: "bottom bottom",
 							scrub: true,
-							markers: true, // For debugging, remove in production
 						},
 					});
 
