@@ -11,7 +11,7 @@ const ScrollSection = () => {
 	const rightSideImageRefs = useRef<(HTMLImageElement | null)[]>([]);
 
 	useEffect(() => {
-		// Define a breakpoint for mobile devices (e.g., 768px for tablets)
+		// Define a breakpoint for mobile devices
 		const breakpoint = 992;
 
 		// Function to set up ScrollTriggers
@@ -21,27 +21,26 @@ const ScrollSection = () => {
 					// Animate the previous image up to reveal the next image
 					gsap.to(rightSideImageRefs.current[index - 1], {
 						yPercent: -100,
-						duration: 0.5,
 						ease: "none",
 						scrollTrigger: {
 							trigger: section,
-							start: "top center",
+							start: "top bottom",
 							end: "bottom bottom",
 							scrub: true,
-							// markers: true, // For debugging, remove in production
+							markers: true, // For debugging, remove in production
 						},
 					});
 
 					// Set the active section index for navigation highlighting
-					ScrollTrigger.create({
-						trigger: section,
-						start: "top center",
-						end: "bottom center",
-						onEnter: () => setActiveSection(index),
-						onEnterBack: () => setActiveSection(index),
-						onLeave: () => setActiveSection(index + 1),
-						onLeaveBack: () => setActiveSection(index - 1),
-					});
+					// ScrollTrigger.create({
+					// 	trigger: section,
+					// 	start: "top center",
+					// 	end: "bottom center",
+					// 	onEnter: () => setActiveSection(index),
+					// 	onEnterBack: () => setActiveSection(index),
+					// 	onLeave: () => setActiveSection(index + 1),
+					// 	onLeaveBack: () => setActiveSection(index - 1),
+					// });
 				}
 			});
 		};
