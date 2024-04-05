@@ -28,7 +28,7 @@ const ScrollSection = () => {
 							start: "top center",
 							end: "bottom bottom",
 							scrub: true,
-							markers: true, // For debugging, remove in production
+							// markers: true, // For debugging, remove in production
 						},
 					});
 
