@@ -71,7 +71,7 @@ const HeroSection = () => {
 							<h1 className="lg:text-8xl text-4xl">
 								LUXURY <em>at your leisure</em>
 							</h1>
-							<p className="text-3xl max-w-5xl absolute mt-8 pt-16">
+							<p className="text-3xl max-w-5xl mt-8">
 								Discover the epitome of luxury and charm in Newport beach, a
 								coastal heaven known for its world-class food, picturesque
 								shoreline, and tranquil bay waters. From the iconic Newport Pier

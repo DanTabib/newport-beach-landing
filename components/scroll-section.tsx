@@ -1,163 +1,184 @@
 "use client";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import Image from "next/image";
 import GhostButton from "@/components/ghost-button";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ScrollSection = () => {
-	useEffect(() => {
-		const images = gsap.utils.toArray<HTMLImageElement>(".right-side img");
+	const sectionRefs = useRef([]);
+	const rightSideImageRefs = useRef([]);
 
-		images.forEach((image, index) => {
-			if (index !== 0) {
-				ScrollTrigger.create({
-					trigger: image,
-					start: "top top",
-					end: "bottom top",
-					animation: gsap.to(image, { translateY: "0%", duration: 0.5 }),
-					scrub: true,
-				});
+	useEffect(() => {
+		// Define a breakpoint for mobile devices (e.g., 768px for tablets)
+		const breakpoint = 992;
+
+		// Function to set up ScrollTriggers
+		const setUpScrollTriggers = () => {
+			sectionRefs.current.forEach((section, index) => {
+				if (index > 0) {
+					// Animate the previous image up to reveal the next image
+					gsap.to(rightSideImageRefs.current[index - 1], {
+						yPercent: -100,
+						duration: 0.5,
+						ease: "none",
+						scrollTrigger: {
+							trigger: section,
+							start: "top center",
+							end: "bottom bottom",
+							scrub: true,
+							markers: true, // For debugging, remove in production
+						},
+					});
+
+					// Set the active section index for navigation highlighting
+					ScrollTrigger.create({
+						trigger: section,
+						start: "top center",
+						end: "bottom center",
+						onEnter: () => setActiveSection(index),
+						onEnterBack: () => setActiveSection(index),
+						onLeave: () => setActiveSection(index + 1),
+						onLeaveBack: () => setActiveSection(index - 1),
+						markers: true, // For debugging, remove in production
+					});
+				}
+			});
+		};
+
+		// Check if the current window width is greater than the breakpoint
+		const isDesktop = window.innerWidth > breakpoint;
+
+		if (isDesktop) {
+			// Set up ScrollTriggers for desktop
+			setUpScrollTriggers();
+		}
+
+		// Cleanup function
+		return () => {
+			if (isDesktop) {
+				// Kill all ScrollTriggers to clean up
+				ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 			}
-		});
+		};
 	}, []);
 
+	// Dynamically update the active section for the navigation
+	const [activeSection, setActiveSection] = useState(0);
 	return (
 		<section className="">
 			<div className="lg:flex items-start">
-				<nav className="sticky top-0">
+				<nav className="sticky top-0 lg:block hidden">
 					<ul className="flex items-center justify-center gap-6 inter [writing-mode:vertical-lr] -scale-[1] bg-secondary h-full px-6">
-						<li className="flex items-center justify-center gap-3">
-							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
-							<span className="uppercase text-1xl">Things to do</span>
-						</li>
-						<li className="flex items-center justify-center gap-3">
-							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
-							<span className="uppercase text-1xl">Dine</span>
-						</li>
-						<li className="flex items-center justify-center gap-3">
-							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
-							<span className="uppercase text-1xl">Shop</span>
-						</li>
-						<li className="flex items-center justify-center gap-3">
-							<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
-							<span className="uppercase text-1xl">Stay</span>
-						</li>
+						{["Things to do", "Dine", "Shop", "Stay"].map((item, index) => (
+							<li
+								key={index}
+								className={`flex items-center justify-center gap-3 ${
+									activeSection === index ? "opacity-100" : "opacity-25"
+								}`}
+							>
+								<span className="w-3 h-3 rounded-full bg-neutral-500"></span>
+								<span className="uppercase text-xl font-semibold">{item}</span>
+							</li>
+						))}
 					</ul>
 				</nav>
-				<div className="left-side col-span-1 bg-secondary lg:w-1/2">
-					{/* THINGS TO DO */}
-					<div className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col">
-						<h3 className="lg:text-6xl text-3xl max-w-[250px] mx-auto text-primary font-semibold">
-							THINGS <em>to do</em>
-						</h3>
-						<div className="relative w-full">
-							<img
-								className="mt-5 mx-auto"
-								src="/sample2.png"
-								width={557}
-								height={443}
-								alt=""
-							/>
-						</div>
-						<p className="mt-4 lg:text-xl text-lg text-primary max-w-md mx-auto">
-							Discover the epitome of luxury and charm in Newport Beach, a
-							coastal haven known for its world
-						</p>
-						<div className="mt-4">
+				<div className="left-side col-span-1 bg-secondary lg:w-1/2 flex flex-col gap-12">
+					{/* Things to Do Section */}
+					<div
+						ref={(el) => (sectionRefs.current[0] = el)}
+						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
+					>
+						<img
+							src="/scroll-1.jpg"
+							alt="Things to Do"
+							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
+						/>
+						<div className="lg:p-0 p-8 flex flex-col gap-10">
+							<h3 className="lg:text-6xl text-3xl">
+								THINGS <em>to do</em>
+							</h3>
+							<p>Description of things to do...</p>
 							<GhostButton text="View More" />
 						</div>
 					</div>
-					{/* THINGS TO SEE */}
-					<div className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col">
-						<h3 className="lg:text-6xl text-3xl max-w-[250px] mx-auto text-primary font-semibold">
-							THINGS <em>to see</em>
-						</h3>
-						<div className="relative w-full">
-							<img
-								className="mt-5 mx-auto"
-								src="/sample.png"
-								width={557}
-								height={443}
-								alt=""
-							/>
-						</div>
-						<p className="mt-4 lg:text-xl text-lg text-primary max-w-md mx-auto">
-							Lorem ipsum dolor emet
-						</p>
-						<div className="mt-4">
+					{/* Dine Section */}
+					<div
+						ref={(el) => (sectionRefs.current[1] = el)}
+						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
+					>
+						<img
+							src="/scroll-2.jpg"
+							alt="Dine"
+							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
+						/>
+						<div className="lg:p-0 p-8 flex flex-col gap-10">
+							<h3 className="lg:text-6xl text-3xl">DINE</h3>
+							<p>Description of places to dine...</p>
 							<GhostButton text="View More" />
 						</div>
 					</div>
-					{/* PLACES TO SHOP */}
-					<div className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col">
-						<h3 className="lg:text-6xl text-3xl max-w-[250px] mx-auto text-primary font-semibold">
-							PLACES <em>to shop</em>
-						</h3>
-						<div className="relative w-full">
-							<img
-								className="mt-5 mx-auto"
-								src="/sample.png"
-								width={557}
-								height={443}
-								alt=""
-							/>
-						</div>
-						<p className="mt-4 lg:text-xl text-lg text-primary max-w-md mx-auto">
-							Lorem ipsum dolor emet
-						</p>
-						<div className="mt-4">
+					{/* Shop Section */}
+					<div
+						ref={(el) => (sectionRefs.current[2] = el)}
+						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
+					>
+						<img
+							src="/scroll-3.jpg"
+							alt="Shop"
+							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
+						/>
+						<div className="lg:p-0 p-8 flex flex-col gap-10">
+							<h3 className="lg:text-6xl text-3xl">SHOP</h3>
+							<p>Description of places to shop...</p>
 							<GhostButton text="View More" />
 						</div>
 					</div>
-					{/* HOTELS TO STAY */}
-					<div className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col">
-						<h3 className="lg:text-6xl text-3xl max-w-[250px] mx-auto text-primary font-semibold">
-							HOTELS <em>to stay</em>
-						</h3>
-						<div className="relative w-full">
-							<img
-								className="mt-5 mx-auto"
-								src="/sample.png"
-								width={557}
-								height={443}
-								alt=""
-							/>
-						</div>
-						<p className="mt-4 lg:text-xl text-lg text-primary max-w-md mx-auto">
-							Lorem ipsum dolor emet
-						</p>
-						<div className="mt-4">
+					{/* Stay Section */}
+					<div
+						ref={(el) => (sectionRefs.current[3] = el)}
+						className="lg:h-screen max-w-3xl mx-auto text-center flex justify-center gap-3 flex-col"
+					>
+						<img
+							src="/scroll-4.jpg"
+							alt="Stay"
+							className="rounded-b-[45px] lg:h-screen object-cover z-40 lg:hidden block"
+						/>
+						<div className="lg:p-0 p-8 flex flex-col gap-10">
+							<h3 className="lg:text-6xl text-3xl">
+								HOTELS <em>to stay</em>
+							</h3>
+							<p>Description of hotels to stay...</p>
 							<GhostButton text="View More" />
 						</div>
 					</div>
 				</div>
-				<div className="right-side col-span-1 relative lg:w-1/2">
-					{/* THINGS TO DO */}
+				<div className="right-side h-screen col-span-1 relative lg:w-1/2 overflow-hidden sticky top-0 lg:block hidden">
+					{/* Images corresponding to each section */}
 					<img
-						className="rounded-b-[60px] lg:h-screen sticky top-0 object-cover"
+						ref={(el) => (rightSideImageRefs.current[0] = el)}
 						src="/scroll-1.jpg"
-						alt=""
+						alt="Things to Do"
+						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-40"
 					/>
-					{/* THINGS TO SEE */}
 					<img
-						className="rounded-b-[60px] lg:h-screen sticky top-0 object-cover"
+						ref={(el) => (rightSideImageRefs.current[1] = el)}
 						src="/scroll-2.jpg"
-						alt=""
+						alt="Dine"
+						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-30"
 					/>
-					{/* PLACES TO SHOP */}
 					<img
-						className="rounded-b-[60px] lg:h-screen sticky top-0 object-cover"
+						ref={(el) => (rightSideImageRefs.current[2] = el)}
 						src="/scroll-3.jpg"
-						alt=""
+						alt="Shop"
+						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-20"
 					/>
-					{/* HOTELS TO STAY */}
 					<img
-						className="rounded-b-[60px] lg:h-screen sticky top-0 object-cover"
+						ref={(el) => (rightSideImageRefs.current[3] = el)}
 						src="/scroll-4.jpg"
-						alt=""
+						alt="Stay"
+						className="rounded-b-[45px] lg:h-screen absolute top-0 object-cover z-10"
 					/>
 				</div>
 			</div>
